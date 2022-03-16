@@ -1,11 +1,21 @@
+import Row from "../common/layout/Row";
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Content from "../common/template/Content";
 import ValueBox from '../common/widget/ValueBox';
 import ContentHeader from "../common/template/ContentHeader";
-import Row from "../common/layout/Row";
+import { bindActionCreators } from 'redux';
 
-export default class Dashboard extends Component {
+import { getSummary } from './Dashboard.actions';
+
+class Dashboard extends Component {
+    componentWillMount() {
+        this.props.getSummary();
+    }
+
     render() {
+        const { credit, debt } = this.props.summary;
+
         return (
             <div>
                 <ContentHeader 
@@ -18,7 +28,7 @@ export default class Dashboard extends Component {
                             cols={'12 4'}
                             color={'green'}
                             icon={'bank'}
-                            value={'R$ 10'}
+                            value={`R$ ${credit}`}
                             text={'Total de Créditos'}
                         />
 
@@ -26,7 +36,7 @@ export default class Dashboard extends Component {
                             cols={'12 4'}
                             color={'red'}
                             icon={'credit-card'}
-                            value={'R$ 10'}
+                            value={`R$ ${debt}`}
                             text={'Total de Débitos'}
                         />
 
@@ -34,7 +44,7 @@ export default class Dashboard extends Component {
                             cols={'12 4'}
                             color={'blue'}
                             icon={'money'}
-                            value={'R$ 10'}
+                            value={`R$ ${credit - debt}`}
                             text={'Valor Consolidado'}
                         />
                     </Row>
@@ -43,3 +53,11 @@ export default class Dashboard extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    summary: state.dashboard.summary
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({ getSummary }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
