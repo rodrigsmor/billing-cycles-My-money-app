@@ -5,7 +5,7 @@ import MenuTree from './MenuTree';
 export default props => (
     <ul className="sidebar-menu">
         <MenuItem 
-            path={'#'} 
+            path={'/'} 
             icon={'dashboard'} 
             label={'Dashboard'} 
         />
@@ -14,7 +14,7 @@ export default props => (
             icon={'edit'}
         >
             <MenuItem 
-                path={'#billingCycles'} 
+                path={'/billingCycles'} 
                 label={'Ciclos de Pagamentos'}
                 icon={'usd'}
             />
