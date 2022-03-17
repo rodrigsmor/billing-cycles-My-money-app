@@ -5,10 +5,21 @@ import { bindActionCreators } from "redux";
 import { init } from "./billingCycles.action";
 import { reduxForm, Field, formValueSelector } from 'redux-form';
 import labelAndInput from "../common/form/labelAndInput";
+import Summary from "./Summary";
 
 class BillingCycleForm extends React.Component {
+    calculateSummary() {
+        const sum = ( t, v ) => t + v;
+
+        return {
+            sumOfCredits: this.props.credits.map(c => +c.value || 0).reduce(sum),
+            sumOfDebts: this.props.debts.map(d => +d.value).reduce(sum)
+        }
+    }
+
     render() {
         const { handleSubmit, readOnly, credits, debts } = this.props;
+        const { sumOfCredits, sumOfDebts } = this.calculateSummary();
 
         return (
             <form role={'form'} onSubmit={handleSubmit}>
@@ -39,6 +50,7 @@ class BillingCycleForm extends React.Component {
                         component={labelAndInput} 
                         placeholder={'Informe o ano'}
                     />
+                    <Summary credit={sumOfCredits} debt={sumOfDebts}/>
                     <ItemList legend={'Créditos'} fields={'credits'} cols={'12 6'} list={credits} readOnly={readOnly} />
                     <ItemList legend={'Débitos'} fields={'debts'} cols={'12 6'} list={debts} readOnly={readOnly} showStatus={true}/>
                 </div>
