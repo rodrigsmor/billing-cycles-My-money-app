@@ -5,16 +5,16 @@ import { logout } from '../../auth/auth.actions';
 
 class Navbar extends Component {
     constructor(props) {
-        super(props);
-        this.state = { open: false };
+        super(props)
+        this.state = { open: false }
     }
 
     changeOpen() {
-        this.setState({ open: !this.state.open });
+        this.setState({ open: !this.state.open })
     }
 
     render() {
-        const { name, email } = this.props.user;
+        const { name, email } = this.props.user
 
         return (
             <div className="navbar-custom-menu">
@@ -26,13 +26,13 @@ class Navbar extends Component {
                             aria-expanded={this.state.open ? 'true' : 'false'}
                             className="dropdown-toggle"
                             data-toggle="dropdown">
-                            <img src="http://lorempixel.com/160/160/200"
+                            <img src="http://lorempixel.com/160/160/abstract"
                                 className="user-image" alt="User Image" />
                             <span className="hidden-xs">{name}</span>
                         </a>
                         <ul className="dropdown-menu">
                             <li className="user-header">
-                                <img src="http://lorempixel.com/160/160/200"
+                                <img src="http://lorempixel.com/160/160/abstract"
                                     className="img-circle" alt="User Image" />
                                 <p>{name}<small>{email}</small></p>
                             </li>

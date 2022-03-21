@@ -7,7 +7,7 @@ import { reduxForm, Field } from 'redux-form';
 import Row from '../common/layout/Row';
 import If from '../common/Operators/If';
 import Grid from '../common/layout/Grid';
-import Input from '../common/form/Input';
+import Input from '../common/form/InputAuth';
 import { login, signup } from './auth.actions';
 import Messages from '../common/messages/messages';
 
@@ -25,10 +25,12 @@ class Auth extends Component {
         const { login, signup } = this.props
         this.state.loginMode ? login(values) : signup(values)
     }
-    
+
     render() {
         const { loginMode } = this.state
         const { handleSubmit } = this.props
+
+        console.log(loginMode)
 
         return (
             <div className="login-box">
